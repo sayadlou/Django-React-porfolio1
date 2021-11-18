@@ -1,0 +1,25 @@
+{% extends "core/base.html" %}
+{% block title %}
+    <body class="contact light">
+{% endblock title %}
+{% block content %}
+    <section class="mt-2 title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
+        {#        <h1>get in <span>touch</span></h1>#}
+        {#        <span class="title-bg">contact</span>#}
+    </section>
+    <!-- Page Title Ends -->
+    <!-- Main Content Starts -->
+    <section class="main-content revealator-slideup revealator-once revealator-delay1">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Left Side Starts -->
+                    <h1>
+                        {{ object.thanks_message|safe }}
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+    </section>
+{% endblock content %}

@@ -1,0 +1,60 @@
+{% extends "core/base.html" %}
+{% block title %}
+    <body class="contact light">
+{% endblock title %}
+{% block content %}
+    <section class="mt-2 title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
+        <h1>get in <span>touch</span></h1>
+        <span class="title-bg">contact</span>
+    </section>
+    <!-- Page Title Ends -->
+    <!-- Main Content Starts -->
+    <section class="main-content revealator-slideup revealator-once revealator-delay1">
+        <div class="container">
+            <div class="row">
+                <!-- Left Side Starts -->
+                <div class="col-12 col-lg-4">
+                    <h3 class="text-uppercase custom-title mb-0 ft-wt-600 pb-3">{{ profile.contact_title }}</h3>
+                    <p class="open-sans-font mb-3">{{ profile.contact_message |safe}}</p>
+                    <p class="open-sans-font custom-span-contact position-relative">
+                        <i class="fa fa-envelope-open position-absolute"></i>
+                        <span class="d-block">mail me</span>{{ profile.email }}
+                    </p>
+                    <p class="open-sans-font custom-span-contact position-relative">
+                        <i class="fa fa-phone-square position-absolute"></i>
+                        <span class="d-block">call me</span>{{ profile.phone_number }}
+                    </p>
+                    <ul class="social list-unstyled pt-1 mb-5">
+                        {% for account in profile.social_network.all %}
+                            <li class="facebook"><a title="{{ account.title }}" href="{{ account.link }}"><i
+                                    class="{{ account.icon }}"></i></a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- Left Side Ends -->
+                <!-- Contact Form Starts -->
+                <div class="col-12 col-lg-8">
+                    <form method="POST" enctype="multipart/form-data" class="contactform"
+                          action="{% url 'core:contact' %}">
+                        {% csrf_token %}
+                        <label for="{{ form.subject.id_for_name }}">Your name:</label>
+                        {{ form.name }}
+                        <label for="{{ form.subject.id_for_email }}">Your email:</label>
+                        {{ form.email }}
+                        <label for="{{ form.subject.id_for_subject }}">Subject:</label>
+                        {{ form.subject }}
+                        <label for="{{ form.subject.id_for_content }}">Message:</label>
+                        {{ form.content }}
+                        <button type="submit" class="button">
+                            <span class="button-text">Send Message</span>
+                            <span class="button-icon fa fa-send"></span>
+                        </button>
+                    </form>
+                </div>
+                <!-- Contact Form Ends -->
+            </div>
+        </div>
+
+    </section>
+{% endblock content %}

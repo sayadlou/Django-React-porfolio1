@@ -1,0 +1,99 @@
+import {Box, Card, CardActionArea, CardMedia, Grid, Typography} from "@material-ui/core";
+import {
+    Edit,
+    ImageField,
+    ImageInput, maxLength, required,
+    SimpleForm,
+    TextInput,
+    useEditController
+} from "react-admin";
+import RichTextInput from "ra-input-rich-text";
+import * as React from "react";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+    root: {
+        maxWidth: 345,
+    },
+    media: {
+        height: 140,
+    },
+});
+const PortfolioTitle = ({record}) => {
+    return <span>Portfolio {record ? `"${record.title}"` : ''}</span>;
+};
+const ShowPicture = ({picture}) => {
+    const classes = useStyles();
+    return (
+        <Box>
+            <Typography style={{fontSize: "0.8rem", marginBottom: "10px"}}
+                        className="MuiFormLabel-root RaFileInput-root-78">
+                Last Picture
+            </Typography>
+            <Card className={classes.root}>
+                <CardActionArea>
+                    <CardMedia
+                        className={classes.media}
+                        image={picture}
+                        title="Contemplative Reptile"
+                    />
+                </CardActionArea>
+            </Card>
+        </Box>
+    );
+}
+const PortfolioEdit = (props) => {
+        const controllerProps = useEditController(props);
+        let {
+            record, // record fetched via dataProvider.getOne() based on the id from the location
+        } = controllerProps;
+        if (typeof record == "undefined") {
+            return (
+                <React.Fragment/>
+            )
+        } else return (
+            <Edit title={<PortfolioTitle/>} {...props}>
+                <SimpleForm>
+                    <TextInput validate={[maxLength(50), required()]} source="title"/>
+                    <TextInput validate={[maxLength(100), required()]} source="link"/>
+                    <RichTextInput
+                        source="description"
+                        validate={[maxLength(400), required()]}
+                        toolbar={[
+                            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                            ['blockquote', 'code-block'],
+
+                            [{'header': 1}, {'header': 2}],               // custom button values
+                            [{'list': 'ordered'}, {'list': 'bullet'}],
+                            [{'script': 'sub'}, {'script': 'super'}],      // superscript/subscript
+                            [{'indent': '-1'}, {'indent': '+1'}],          // outdent/indent
+                            [{'direction': 'rtl'}],                         // text direction
+
+                            [{'size': ['small', false, 'large', 'huge']}],  // custom dropdown
+                            [{'header': [1, 2, 3, 4, 5, 6, false]}],
+
+                            [{'color': []}, {'background': []}],          // dropdown with defaults from theme
+                            [{'font': []}],
+                            [{'align': []}],
+
+                            ['clean']                                         // remove formatting button
+                        ]}
+                    />
+                    <Grid container spacing={3} style={{width: "100%"}}>
+                        <Grid item xs={6}>
+                            <ImageInput validate={[required()]} source="picture" accept="image/*">
+                                <ImageField source="src" title="title"/>
+                            </ImageInput>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <ShowPicture picture={ record.picture}/>
+                        </Grid>
+                    </Grid>
+                </SimpleForm>
+            </Edit>
+        )
+    }
+;
+
+
+export default PortfolioEdit;

@@ -1,0 +1,140 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Sabery - Personal Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Template Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700" rel="stylesheet">
+
+    <!-- Template CSS Files -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha512-znmTf4HNoF9U6mfB6KlhAShbRvbt4CvCaHoNV0gyssfToNQ/9A0eNdUbvsSwOIUoJdMjFG2ndSvr0Lo3ZpsTqQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="{% static "core/css/preloader.min.css" %}" rel="stylesheet">
+
+    <link href="{% static "core/css/circle.css" %}" rel="stylesheet">
+    <link href="{% static "core/css/fm.revealator.jquery.min.css" %}" rel="stylesheet">
+    <link href="{% static "core/css/style.css" %}" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="{% static 'core/favicon.ico' %}"/>
+
+    <!-- CSS Skin File -->
+    <link href="{% static "core/css/skins/green.css" %}" rel="stylesheet">
+
+    <!-- Modernizr JS File -->
+    <script src="{% static "core/js/modernizr.custom.js" %}"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+
+</head>
+{% block title %}
+
+{% endblock title %}
+<!-- Header Starts -->
+{% for field in form %}
+    {% if field.errors %}
+        <script>
+            alertify.error('{{ field.errors.as_text }}');
+        </script>
+    {% endif %}
+{% endfor %}
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+            <script>
+                alertify.success('{{ message }}');
+            </script>
+        {% endif %}
+        {% if message.tags == 'error' %}
+            <script>
+                alertify.error('{{ message }}');
+            </script>
+        {% endif %}
+        {% if message.tags == 'warning' %}
+            <script>
+                alertify.warning('{{ message }}');
+            </script>
+        {% endif %}
+        {% if message.tags == 'info' %}
+            <script>
+                alertify.message('{{ message }}');
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+<nav style="z-index: 50" class="fixed-top pl-5 navbar navbar-expand-lg navbar-light bg-light  py-0 d-none d-lg-flex">
+    <a class="navbar-brand" href="/">Sabery</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarNav">
+        <ul class="navbar-nav  pr-5" style="margin-left: auto">
+            <li class="nav-item {% if "/" == request.path %}active{% endif %} border-right py-2 px-4">
+                <a class="nav-link text-uppercase" href="/">Home</a>
+            </li>
+            <li class="nav-item {% if "about" in request.path %}active{% endif %} border-right py-2 px-4">
+                <a class="nav-link text-uppercase" href="/about">About me</a>
+            </li>
+            <li class="nav-item {% if "portfolio" in request.path %}active{% endif %} border-right py-2 px-4">
+                <a class="nav-link text-uppercase" href="/portfolio">Portfolio</a>
+            </li>
+            <li class="nav-item {% if "contact" in request.path %}active{% endif %} border-right py-2 px-4">
+                <a class="nav-link text-uppercase" href="/contact">contact</a>
+            </li>
+            <li class="nav-item {% if "/blog/" == request.path %}active{% endif %} border-right py-2 px-4">
+                <a class="nav-link text-uppercase" href="/blog">blog</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<nav role="navigation" class="d-block d-lg-none">
+    <div id="menuToggle">
+        <input type="checkbox"/>
+        <span></span>
+        <span></span>
+        <span></span>
+        <ul class="list-unstyled" id="menu">
+            <li class="{% if "/" == request.path %}active{% endif %}"><a href="/"><i class="fa fa-home"></i><span>Home</span></a></li>
+            <li class="{% if "about" in request.path %}active{% endif %}"><a href="/about"><i class="fa fa-user"></i><span>About me</span></a></li>
+            <li class="{% if "portfolio" in request.path %}active{% endif %}"><a href="/portfolio"><i class="fa fa-folder-open"></i><span>Portfolio</span></a></li>
+            <li class="{% if "contact" in request.path %}active{% endif %}"><a href="/contact"><i class="fa fa-envelope-open"></i><span>Contact</span></a></li>
+            <li class="{% if "/blog/" == request.path %}active{% endif %}"><a href="/blog"><i class="fa fa-comments"></i><span>Blog</span></a></li>
+        </ul>
+    </div>
+</nav>
+
+{{ request.path }}
+{% block content %}
+{% endblock content %}
+<!-- Template JS Files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
+        integrity="sha512-k2WPPrSgRFI6cTaHHhJdc8kAXaRM4JBFEDo1pPGGlYiOyv4vnA0Pp0G5XMYYxgAPmtmv/IIaQA6n5fLAyJaFMA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static "core/js/preloader.min.js" %}"></script>
+<script src="{% static "core/js/fm.revealator.jquery.min.js" %}"></script>
+<script src="{% static "core/js/imagesloaded.pkgd.min.js" %}"></script>
+<script src="{% static "core/js/masonry.pkgd.min.js" %}"></script>
+<script src="{% static "core/js/classie.js" %}"></script>
+<script src="{% static "core/js/cbpGridGallery.js" %}"></script>
+<script src="{% static "core/js/jquery.hoverdir.js" %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.1/umd/popper.min.js"
+        integrity="sha512-8jeQKzUKh/0pqnK24AfqZYxlQ8JdQjl9gGONwGwKbJiEaAPkD3eoIjz3IuX4IrP+dnxkchGUeWdXLazLHin+UQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha512-jCaU0Dp3IbMDlZ6f6dSEQSnOrSsugG6F6YigRWnagi7HoOLshF1kwxLT4+xCZRgQsTNqpUKj6WmWOxsu9l3URA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static "core/js/custom.js" %}"></script>
+
+</body>
+
+</html>

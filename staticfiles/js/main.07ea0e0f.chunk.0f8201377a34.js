@@ -1,0 +1,2 @@
+(this.webpackJsonpreact_app=this.webpackJsonpreact_app||[]).push([[0],{27:function(e,t,c){"use strict";c.r(t);c(0);var n=c(13),r=c.n(n),a=c(14),s=c(1),j=c(6);function i(){return Object(j.jsx)("h1",{children:"salam donya"})}function d(){return Object(j.jsx)(a.a,{children:Object(j.jsx)("div",{children:Object(j.jsx)(s.c,{children:Object(j.jsx)(s.a,{exact:!0,path:"/admin",children:Object(j.jsx)(i,{})})})})})}r.a.render(Object(j.jsx)(d,{}),document.getElementById("root"))}},[[27,1,2]]]);
+//# sourceMappingURL=main.07ea0e0f.chunk.js.map
